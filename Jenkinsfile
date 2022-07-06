@@ -9,16 +9,6 @@ pipeline {
             some-label: some-label-value
         spec:
           containers:
-          - name: maven
-            image: maven:alpine
-            command:
-            - cat
-            tty: true
-          - name: busybox
-            image: busybox
-            command:
-            - cat
-            tty: true
           - name: kaniko
             image: gcr.io/kaniko-project/executor:debug
             imagePullPolicy: Always
