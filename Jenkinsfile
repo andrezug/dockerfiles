@@ -1,38 +1,37 @@
 pipeline {
   agent {
-            kubernetes {
-            //cloud 'kubernetes'
-            defaultContainer 'kaniko'
-            yaml """
+    kubernetes {
+      yaml '''
+        apiVersion: v1
         kind: Pod
+        metadata:
+          labels:
+            some-label: some-label-value
         spec:
-        containers:
-          - name: kaniko
-            image: gcr.io/kaniko-project/executor:debug
-            imagePullPolicy: Always
+          containers:
+          - name: maven
+            image: maven:alpine
             command:
-            - sleep
-            args:
-            - 9999999
-        """
-            }
+            - cat
+            tty: true
+          - name: busybox
+            image: busybox
+            command:
+            - cat
+            tty: true
+        '''
     }
-
-   stages {
-        stage('Build') { 
-            steps {
-                git branch: 'main', url: 'https://github.com/andrezug/dockerfiles.git'
-            }
+  }
+  stages {
+    stage('Run maven') {
+      steps {
+        container('maven') {
+          sh 'mvn -version'
         }
-
-        stage ('Exec Kaniko') {
-            steps { 
-                container('kaniko') {
-                sh '''
-                    /kaniko/executor
-                '''
-               }
-            }
+        container('busybox') {
+          sh '/bin/busybox'
         }
+      }
     }
+  }
 }
