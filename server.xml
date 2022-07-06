@@ -1,0 +1,11 @@
+<server description="new server">
+
+    <featureManager>
+      <feature>jsp-2.3</feature>
+    </featureManager>
+
+    <httpEndpoint id="defaultHttpEndpoint"
+      host="localhost"
+      httpPort="9090"
+      httpsPort="9443" />
+</server>
