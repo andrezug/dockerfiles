@@ -19,6 +19,13 @@ pipeline {
             command:
             - cat
             tty: true
+           - name: kaniko
+            image: gcr.io/kaniko-project/executor:debug
+            imagePullPolicy: Always
+            command:
+            - sleep
+            args:
+                - 99d 
         '''
     }
   }
@@ -30,6 +37,9 @@ pipeline {
         }
         container('busybox') {
           sh '/bin/busybox'
+        }
+        container('kaniko') {
+          sh '/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --cache=true'
         }
       }
     }
