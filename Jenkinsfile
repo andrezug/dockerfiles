@@ -39,7 +39,7 @@ pipeline {
           sh '/bin/busybox'
         }
         container('kaniko') {
-          sh '/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --cache=true --no-push'
+          sh '/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --no-push'
         }
       }
     }
