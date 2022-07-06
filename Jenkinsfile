@@ -35,9 +35,6 @@ pipeline {
         container('maven') {
           sh 'mvn -version'
         }
-        container('busybox') {
-          sh '/bin/busybox'
-        }
         container('kaniko') {
           sh '/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --no-push'
         }
