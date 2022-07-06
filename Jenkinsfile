@@ -32,9 +32,6 @@ pipeline {
   stages {
     stage('Run maven') {
       steps {
-        container('maven') {
-          sh 'mvn -version'
-        }
         container('kaniko') {
           sh '/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --no-push'
         }
