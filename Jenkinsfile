@@ -29,7 +29,7 @@ pipeline {
             steps { 
                 container('kaniko') {
                 sh '''
-                    /kaniko/executor --context `pwd` --destination test-docker.jfrog.io/hello-kaniko --image-name-with-digest-file=image-file
+                    /kaniko/executor
                 '''
                }
             }
