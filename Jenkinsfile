@@ -20,10 +20,10 @@ pipeline {
     }
   }
   stages {
-    stage('Run maven') {
+    stage('Build image') {
       steps {
         container('kaniko') {
-          sh '/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --no-push'
+          sh '/kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --no-push'
         }
       }
     }
