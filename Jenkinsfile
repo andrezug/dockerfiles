@@ -15,7 +15,17 @@ pipeline {
             command:
             - sleep
             args:
-                - 99d 
+                - 99d
+            volumeMounts:
+              - name: jenkins-docker-cfg
+                mountPath: /kaniko/.docker
+          volumes:
+          - name: jenkins-docker-cfg
+            secret:
+                name: regcred
+                items:
+                - key: .dockerconfigjson
+                    path: config.json      
         '''
     }
   }
@@ -23,7 +33,7 @@ pipeline {
     stage('Build image') {
       steps {
         container('kaniko') {
-          sh '/kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --no-push'
+          sh '/kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=andrezug/testkaniko:v0.1'
         }
       }
     }
