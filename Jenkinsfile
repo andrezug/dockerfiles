@@ -22,7 +22,7 @@ pipeline {
           volumes:
           - name: jenkins-docker-cfg
             secret:
-                name: regcred
+                secretName: regcred
                 items:
                 - key: .dockerconfigjson
                   path: config.json      
