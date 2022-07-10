@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: test-app
-        image: andrezug/testkaniko:v0.1   
+        image: andrezug/testkaniko:v0.3
         ports:
         - containerPort: 9080
       imagePullSecrets:
@@ -25,9 +25,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: system-service
+  name: testwar-service
+  namespace: jenkins
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: test-app
   ports:
@@ -35,3 +36,20 @@ spec:
     port: 9080
     targetPort: 9080
 ---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: testwar-ingress
+  namespace: jenkins
+spec:
+  rules:
+    - host: hello-world.info
+      http:
+        paths:
+          - path: /testwar
+            pathType: Prefix
+            backend:
+              service:
+                name: testwar-service
+                port:
+                  number: 9080
