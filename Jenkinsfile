@@ -33,7 +33,7 @@ pipeline {
     stage('Build image') {
       steps {
         container('kaniko') {
-          sh '/kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=andrezug/testkaniko:v0.3'
+          sh '/kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=andrezug/testkaniko:v0.4'
         }
       }
     }
