@@ -1,7 +1,7 @@
 <server description="new server">
 
     <featureManager>
-      <feature>servlet4.0</feature>
+      <feature>servlet-4.0</feature>
     </featureManager>
 
     <httpEndpoint id="defaultHttpEndpoint"
