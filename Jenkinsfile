@@ -27,6 +27,7 @@ pipeline {
                 - key: .dockerconfigjson
                   path: config.json      
         '''
+        idleMinutes 10
     }
   }
   stages {
