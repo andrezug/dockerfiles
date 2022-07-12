@@ -4,9 +4,9 @@ pipeline {
       yaml '''
         apiVersion: v1
         kind: Pod
-        #metadata:
-        #  labels:
-        #    some-label: some-label-value
+        metadata:
+          labels:
+            some-label: some-label-value
         spec:
           containers:
           - name: kaniko
