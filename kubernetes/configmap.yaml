@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tcp-services
+  namespace: jenkins
+data:
+  50000: "jenkins/jenkins-agent:50000"
