@@ -1,8 +1,6 @@
 pipeline {
   agent {
-    kubernetes {
-      inheritFrom 'kaniko-label'
-    }
+    label 'kaniko-label'
   }
   stages {
     stage('Build image') {
