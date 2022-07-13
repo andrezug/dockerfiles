@@ -6,7 +6,7 @@ pipeline {
     stage('Build image') {
       steps {
         container('kaniko') {
-          sh '/kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=andrezug/testkaniko:v0.4'
+          sh '/kaniko/executor --cache --dockerfile `pwd`/Dockerfile --context `pwd` --destination=andrezug/testkaniko:v0.4'
         }
       }
     }
