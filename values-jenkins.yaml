@@ -19,7 +19,7 @@ controller:
   # Used for label app.kubernetes.io/component
   componentName: "jenkins-controller"
   image: "jenkins/jenkins"
-  # tag: "2.346.1-jdk11"
+  tag: "2.346.2-jdk11"
   tagLabel: jdk11
   imagePullPolicy: "Always"
   imagePullSecretName:
@@ -91,7 +91,7 @@ controller:
   # The Protocol can be overwritten by specifying `controller.jenkinsUrlProtocol`.
   # jenkinsUrlProtocol: "https"
   # If you are not using the provided ingress you can specify `controller.jenkinsUrl` to change the url definition.
-  # jenkinsUrl: ""
+  jenkinsUrl: "http://jenkins.info"
   # If you set this prefix and use ingress controller then you might want to set the ingress path below
   # jenkinsUriPrefix: "/jenkins"
   # Enable pod security context (must be `true` if podSecurityContextOverride, runAsUser or fsGroup are set)
@@ -238,7 +238,7 @@ controller:
 
   # List of plugins to be install during Jenkins controller start
   installPlugins:
-    - kubernetes:3600.v144b_cd192ca_a_
+    - kubernetes:3663.v1c1e0ec5b_650
     - workflow-aggregator:581.v0c46fa_697ffd
     - git:4.11.3
     - configuration-as-code:1429.v09b_044a_c93de
@@ -721,22 +721,34 @@ agent:
   # For this pod templates configuration to be loaded the following values must be set:
   # controller.JCasC.defaultConfig: true
   # Best reference is https://<jenkins_url>/configuration-as-code/reference#Cloud-kubernetes. The example below creates a python pod template.
-  podTemplates: {}
-  #  python: |
-  #    - name: python
-  #      label: jenkins-python
-  #      serviceAccount: jenkins
-  #      containers:
-  #        - name: python
-  #          image: python:3
-  #          command: "/bin/sh -c"
-  #          args: "cat"
-  #          ttyEnabled: true
-  #          privileged: true
-  #          resourceRequestCpu: "400m"
-  #          resourceRequestMemory: "512Mi"
-  #          resourceLimitCpu: "1"
-  #          resourceLimitMemory: "1024Mi"
+  podTemplates:
+    kaniko: |
+      - idleMinutes: 60
+        idleMinutesStr: "60"
+        label: "kaniko-label"
+        name: "kaniko"
+        yaml: |-
+          apiVersion: v1
+          kind: Pod
+          spec:
+            containers:
+            - name: kaniko
+              image: gcr.io/kaniko-project/executor:v1.8.1-debug
+              imagePullPolicy: Always
+              command:
+              - sleep
+              args:
+                  - 99d
+              volumeMounts:
+                - name: jenkins-docker-cfg
+                  mountPath: /kaniko/.docker
+            volumes:
+            - name: jenkins-docker-cfg
+              secret:
+                  secretName: regcred
+                  items:
+                  - key: .dockerconfigjson
+                    path: config.json
 
 # Here you can add additional agents
 # They inherit all values from `agent` so you only need to specify values which differ
