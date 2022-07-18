@@ -6,7 +6,7 @@ COPY --chown=1001:0  liberty/server.xml /config/
 
 RUN features.sh
 
-COPY --chown=1001:0  testwar.war /config/dropins/
+COPY --chown=1001:0  mywar.war /config/dropins/
 
 # This script will add the requested server configurations, apply any interim fixes and populate caches to optimize runtime
 RUN configure.sh
