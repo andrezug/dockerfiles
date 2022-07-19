@@ -46,7 +46,7 @@ spec:
     - host: hello-world.info
       http:
         paths:
-          - path: /testwar
+          - path: /mywar
             pathType: Prefix
             backend:
               service:
