@@ -34,7 +34,7 @@ pipeline {
     stage('Build image') {
       steps {
         container('kaniko') {
-          sh '/kaniko/executor --cache  --cache-repo=andrezug/cache --dockerfile `pwd`/Dockerfile --context `pwd` --destination=andrezug/testkaniko:v0.5'
+          sh '/kaniko/executor --cache  --cache-repo=andrezug/cache --dockerfile `pwd`/Dockerfile --context `pwd` --destination=andrezug/testkaniko:v0.7'
         }
       }
     }
