@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: test-app
-        image: andrezug/testkaniko:v0.4
+        image: andrezug/testkaniko:v0.5
         ports:
         - containerPort: 9080
       imagePullSecrets:
