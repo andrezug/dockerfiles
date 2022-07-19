@@ -742,6 +742,11 @@ agent:
               volumeMounts:
                 - name: jenkins-docker-cfg
                   mountPath: /kaniko/.docker
+            # initContainers:
+            # - name: kaniko-warmer
+            #   image: gcr.io/kaniko-project/warmer:latest
+            #   command: ["--cache-dir=/cache", "--image=openliberty/open-liberty:22.0.0.6-kernel-slim-java11-openj9-ubi"]
+            #   restartPolicy: Never
             volumes:
             - name: jenkins-docker-cfg
               secret:
